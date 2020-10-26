@@ -8,7 +8,7 @@ import (
 )
 
 var templates = template.Must(template.ParseFiles(
-	"templates/home.html", "templates/login.html", "templates/404.html"))
+	"templates/home.html", "templates/login.html", "templates/404.html", "templates/dashboard.html"))
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	//stop people from accessing non-existant urls
@@ -30,6 +30,13 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func dashboardHandler(w http.ResponseWriter, r *http.Request) {
+	err := templates.ExecuteTemplate(w, "dashboard.html", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	//home page
@@ -37,6 +44,9 @@ func main() {
 
 	//login page
 	http.HandleFunc("/login", loginHandler)
+
+	//email dashboard
+	http.HandleFunc("/dashboard", dashboardHandler)
 
 	fmt.Println("Server running on port 3000")
 	log.Fatal(http.ListenAndServe(":3000", nil))
