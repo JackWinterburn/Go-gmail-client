@@ -7,9 +7,16 @@ import (
 	"net/http"
 )
 
-var templates = template.Must(template.ParseFiles("templates/home.html", "templates/login.html"))
+var templates = template.Must(template.ParseFiles(
+	"templates/home.html", "templates/login.html", "templates/404.html"))
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	//stop people from accessing non-existant urls
+	if r.URL.Path != "/" {
+		_ = templates.ExecuteTemplate(w, "404.html", nil)
+		return
+	}
+
 	err := templates.ExecuteTemplate(w, "home.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
