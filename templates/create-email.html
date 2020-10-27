@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Email</title>
+</head>
+<body>
+  <form action="/send" method="POST">
+    <div class="from">
+      <label for="from-name">Name of sender:</label>
+      <input id="from-name" type="text" name="name-of-sender">
+
+      <label for="from-email-addr">Email address of sender:</label>
+      <input id="from-email-addr" type="text" name="email-of-sender">
+    </div>
+
+    <div class="to">
+      <label for="to-name">Name of recipient:</label>
+      <input id="to-name" type="text" name="name-of-recipient">
+
+      <label for="to-email-addr">Email address of recipient:</label>
+      <input id="to-email-addr" type="text" name="email-of-recipient">
+    </div>
+
+    <label for="subject">subject:</label>
+    <input type="text" name="subject">
+
+    <label for="text-content">Content</label>
+    <textarea name="text-content" id="text-content" cols="30" rows="10">
+    </textarea>
+
+    <label for="html-content">HTML Content (leave blank to use plain text):</label>
+    <textarea name="html-content" id="html-content" cols="30" rows="10">
+    </textarea>
+
+    <input type="submit" value="Send Email">
+  </form>
+</body>
+</html>
